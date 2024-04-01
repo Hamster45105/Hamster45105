@@ -11,6 +11,17 @@ author = quote_data['author']
 # Format the quote
 formatted_quote = f'"{quote}" - {author}'
 
+# Check if the quote exceeds the character limit
+while len(formatted_quote) > 160:
+    # Fetch a new quote
+    quote_response = requests.get('https://api.quotable.io/random')
+    quote_data = quote_response.json()
+    quote = quote_data['content']
+    author = quote_data['author']
+
+    # Format the new quote
+    formatted_quote = f'"{quote}" - {author}'
+
 # Fetch a list of all countries
 countries_response = requests.get('https://restcountries.com/v3.1/all')
 countries_data = countries_response.json()
