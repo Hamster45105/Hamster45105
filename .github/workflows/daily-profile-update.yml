@@ -1,0 +1,27 @@
+name: Update GitHub Profile
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Runs every day at 00:00
+  workflow_dispatch:
+
+jobs:
+  update_profile:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install requests
+
+    - name: Update profile
+      run: python update-profile.py
+      env:
+        GITHUB_TOKEN: ${{ secrets.PAT }}
